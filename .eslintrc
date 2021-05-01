@@ -11,7 +11,10 @@
     "prettier"
   ],
   "rules": {
-    "semi": 0,
+    "semi": [
+      "error",
+      "never"
+    ],
     "import/prefer-default-export": "off",
     "react/prop-types": "warn",
     "jsx-a11y/autocomplete-valid": "off",

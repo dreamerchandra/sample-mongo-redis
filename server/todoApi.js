@@ -1,25 +1,25 @@
-import { Router } from 'express';
+import { Router } from 'express'
 
 export const todoRoutes = () => {
-  const todoRoutes = new Router();
-  const todos = [{ id: 1, text: 'server-fetched todo' }];
+  const routes = new Router()
+  const todos = [{ id: 1, text: 'server-fetched todo' }]
 
-  todoRoutes.get('/api/todos', (_req, res) => {
+  routes.get('/api/todos', (_req, res) => {
     setTimeout(() => {
-      res.json(todos);
-    }, 300);
-  });
+      res.json(todos)
+    }, 300)
+  })
 
-  todoRoutes.post('/api/todos', (req, res) => {
-    const newTodo = req.body;
-    newTodo.id = Date.now();
+  routes.post('/api/todos', (req, res) => {
+    const newTodo = req.body
+    newTodo.id = Date.now()
 
-    todos.push(newTodo);
+    todos.push(newTodo)
 
     setTimeout(() => {
-      res.json(newTodo);
-    }, 100);
-  });
+      res.json(newTodo)
+    }, 100)
+  })
 
-  return todoRoutes;
-};
+  return routes
+}
