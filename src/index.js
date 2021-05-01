@@ -1,28 +1,29 @@
-if (browserSupportsAllFeatures()) {
-  runMain();
-} else {
-  loadScript(window.__ASSET_MANIFEST__['polyfills.js'], runMain);
-}
-
+/* eslint-disable global-require */
 function runMain() {
-  const { main } = require('./main');
-  main();
+  const { main } = require('./main')
+  main()
 }
 
 function browserSupportsAllFeatures() {
-  return window.Promise && Object.assign;
+  return window.Promise && Object.assign
 }
 
 function loadScript(src, done) {
-  const script = document.createElement('script');
+  const script = document.createElement('script')
 
-  script.src = src;
+  script.src = src
   script.onload = () => {
-    done();
-  };
+    done()
+  }
   script.onerror = () => {
-    done(new Error('Failed to load script ' + src));
-  };
+    done(new Error(`Failed to load script ${src}`))
+  }
 
-  document.head.appendChild(script);
+  document.head.appendChild(script)
+}
+
+if (browserSupportsAllFeatures()) {
+  runMain()
+} else {
+  loadScript(window.__ASSET_MANIFEST__['polyfills.js'], runMain)
 }

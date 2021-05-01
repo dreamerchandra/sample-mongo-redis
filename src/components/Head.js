@@ -1,5 +1,5 @@
-import React from 'react';
-import { Helmet } from 'react-helmet';
+import React from 'react'
+import { Helmet } from 'react-helmet'
 
 const Head = () => {
   return (
@@ -17,12 +17,9 @@ const Head = () => {
         content="Boilerplate for React apps with routing & server side rendering"
       />
 
-      <link
-        rel="shortcut icon"
-        href={`${process.env.PUBLIC_URL}/favicon.ico?v1`}
-      />
+      <link rel="shortcut icon" href={`${process.env.PUBLIC_URL}/favicon.ico?v1`} />
     </Helmet>
-  );
-};
+  )
+}
 
-export default Head;
+export default Head

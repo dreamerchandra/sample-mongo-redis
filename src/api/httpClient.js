@@ -1,15 +1,15 @@
-import fetch from 'isomorphic-unfetch';
+import fetch from 'isomorphic-unfetch'
 
 export function httpClient(baseURL) {
   return {
     get: (path, options) => {
-      return fetch(baseURL + path, options).then(res => {
+      return fetch(baseURL + path, options).then((res) => {
         if (!res.ok) {
-          throw new Error(res.statusText);
+          throw new Error(res.statusText)
         }
 
-        return res.json();
-      });
+        return res.json()
+      })
     },
 
     post: (path, body, options = {}) => {
@@ -19,15 +19,15 @@ export function httpClient(baseURL) {
         body: JSON.stringify(body),
         headers: {
           'Content-Type': 'application/json',
-          ...options.headers
-        }
-      }).then(res => {
+          ...options.headers,
+        },
+      }).then((res) => {
         if (!res.ok) {
-          throw new Error(res.statusText);
+          throw new Error(res.statusText)
         }
 
-        return res.json();
-      });
-    }
-  };
+        return res.json()
+      })
+    },
+  }
 }

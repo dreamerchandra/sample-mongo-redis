@@ -1,31 +1,32 @@
-import React, { useState } from 'react';
+/* eslint-disable jsx-a11y/label-has-associated-control */
+import React, { useState } from 'react'
 
-import { api } from '../api';
-import { useServerData } from '../state/serverDataContext';
+import { api } from '../api'
+import { useServerData } from '../state/serverDataContext'
 
 const Home = () => {
-  const serverTodos = useServerData(data => {
-    return data.todos || [];
-  });
-  const [text, setText] = useState('');
-  const [todos, setTodos] = useState(serverTodos);
+  const serverTodos = useServerData((data) => {
+    return data.todos || []
+  })
+  const [text, setText] = useState('')
+  const [todos, setTodos] = useState(serverTodos)
 
   return (
     <div>
       <h1>Home page</h1>
 
       <form
-        onSubmit={e => {
-          e.preventDefault();
+        onSubmit={(e) => {
+          e.preventDefault()
 
           const newTodo = {
-            text
-          };
+            text,
+          }
 
-          api.todos.create(newTodo).then(res => {
-            setTodos([...todos, res]);
-            setText('');
-          });
+          api.todos.create(newTodo).then((res) => {
+            setTodos([...todos, res])
+            setText('')
+          })
         }}
       >
         <label htmlFor="todo">Add a todo</label>
@@ -35,25 +36,25 @@ const Home = () => {
           type="text"
           value={text}
           autoComplete="off"
-          onChange={e => setText(e.target.value)}
+          onChange={(e) => setText(e.target.value)}
         />
       </form>
 
       <ul>
-        {todos.map(todo => (
+        {todos.map((todo) => (
           <li key={todo.id}>{todo.text}</li>
         ))}
       </ul>
     </div>
-  );
-};
+  )
+}
 
 Home.fetchData = () => {
-  return api.todos.all().then(todos => {
+  return api.todos.all().then((todos) => {
     return {
-      todos
-    };
-  });
-};
+      todos,
+    }
+  })
+}
 
-export default Home;
+export default Home
