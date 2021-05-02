@@ -45,8 +45,9 @@ const ServerApp = ({ context, data, location }) => {
   )
 }
 
-export const renderServerSideApp = (req, res) => {
+export const renderServerSideApp = (req, res, next) => {
   Loadable.preloadAll()
     .then(() => fetchDataForRender(ServerApp, req))
     .then((data) => renderApp(ServerApp, data, req, res))
+    .catch(next)
 }

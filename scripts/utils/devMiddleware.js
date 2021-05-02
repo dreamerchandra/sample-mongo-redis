@@ -1,13 +1,13 @@
-import webpack from 'webpack';
-import webpackDevMiddleware from 'webpack-dev-middleware';
-import webpackHotMiddleware from 'webpack-hot-middleware';
+import webpack from 'webpack'
+import webpackDevMiddleware from 'webpack-dev-middleware'
+import webpackHotMiddleware from 'webpack-hot-middleware'
 
-import createConfig from '../../config/webpackConfigFactory';
+import createConfig from '../../config/webpackConfigFactory'
 
-const config = createConfig('development');
+const config = createConfig('development')
 
-export const applyDevMiddleware = app => {
-  const compiler = webpack(config);
+export const applyDevMiddleware = (app) => {
+  const compiler = webpack(config)
 
   app.use(
     webpackDevMiddleware(compiler, {
@@ -19,15 +19,15 @@ export const applyDevMiddleware = app => {
         assets: true,
         chunks: false,
         modules: false,
-        hash: false
-      }
+        hash: false,
+      },
     })
-  );
+  )
 
   app.use(
     webpackHotMiddleware(compiler, {
       path: '/__webpack_hmr',
-      heartbeat: 4000
+      heartbeat: 4000,
     })
-  );
-};
+  )
+}

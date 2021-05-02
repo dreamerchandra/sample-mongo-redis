@@ -1,0 +1,21 @@
+@import '../../styles/colors';
+
+.formWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  width: 80vw;
+  height: 50vh;
+  form {
+    width: 80%;
+    label {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      * {
+        padding: 2px;
+        margin: 5px;
+      }
+    }
+  }
+}

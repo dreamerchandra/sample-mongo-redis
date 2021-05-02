@@ -5,9 +5,10 @@ import helmet from 'helmet'
 import morgan from 'morgan'
 import responseTime from 'response-time'
 import bodyParser from 'body-parser'
-
 import { renderServerSideApp } from './renderServerSideApp'
 import { todoRoutes } from './todoApi'
+import { airQualityRoutes } from './airQuality'
+import errorMiddleware from './errorMiddleware'
 
 const { PUBLIC_URL = '' } = process.env
 
@@ -39,6 +40,8 @@ app.use(morgan('tiny'))
 // Demo API endpoints
 app.use(todoRoutes())
 
+app.use(airQualityRoutes())
+
 app.use(
   responseTime((_req, res, time) => {
     res.setHeader('X-Response-Time', `${time.toFixed(2)}ms`)
@@ -47,3 +50,5 @@ app.use(
 )
 
 app.use(renderServerSideApp)
+
+app.use(errorMiddleware)

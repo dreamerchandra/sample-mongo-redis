@@ -32,7 +32,11 @@ export const fetchDataForRender = (ServerApp, req) => {
         }
       })
     }
-  }).then(() => {
-    return data
   })
+    .then(() => {
+      return data
+    })
+    .catch(() => {
+      return data
+    })
 }

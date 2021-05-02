@@ -1,9 +1,11 @@
+import { airQualityApi } from './airQuality'
 import { httpClient } from './httpClient'
 import { todosApi } from './todosApi'
 
 export function apiFactory(http) {
   return {
     todos: todosApi(http),
+    airQuality: airQualityApi(http),
   }
 }
 

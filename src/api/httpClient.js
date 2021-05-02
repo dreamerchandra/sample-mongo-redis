@@ -5,7 +5,7 @@ export function httpClient(baseURL) {
     get: (path, options) => {
       return fetch(baseURL + path, options).then((res) => {
         if (!res.ok) {
-          throw new Error(res.statusText)
+          throw new Error(res)
         }
 
         return res.json()
