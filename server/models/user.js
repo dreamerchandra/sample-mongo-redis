@@ -12,4 +12,8 @@ const user = Mongoose.Schema({
   },
 })
 
-export default Mongoose.model('user', user)
+const User = () => {
+  return Mongoose.models.user || Mongoose.model('user', user)
+}
+
+export default User()

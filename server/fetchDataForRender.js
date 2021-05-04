@@ -1,6 +1,7 @@
 import React from 'react'
 import ssrPrepass from 'react-ssr-prepass'
 import chalk from 'chalk'
+import fs from 'fs'
 
 function logDuplicateKeyMessage(key, component) {
   /* eslint-disable no-console */
@@ -31,6 +32,18 @@ export const fetchDataForRender = (ServerApp, req) => {
           ...d,
         }
       })
+    }
+    if (element && element.type && element.type.inject) {
+      console.log('in here')
+      element.type.inject.forEach((file) => {
+        const content = fs.readFileSync(`${process.env.PUBLIC_URL}/${file}`)
+        console.log(content, 'content')
+        data = {
+          ...data,
+          [file]: content,
+        }
+      })
+      return Promise.resolve(data)
     }
   })
     .then(() => {

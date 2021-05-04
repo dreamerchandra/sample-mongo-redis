@@ -1,5 +1,6 @@
-import Readings from '../models/value'
 import { aiqQueue } from '../taskQueue'
+
+const Readings = require('../models/value')
 
 export const STATUS = {
   CREATED: 'created',

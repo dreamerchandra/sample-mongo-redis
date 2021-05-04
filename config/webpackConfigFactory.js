@@ -1,58 +1,59 @@
-const path = require('path');
-const autoprefixer = require('autoprefixer');
-const webpack = require('webpack');
-const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
-const eslintFormatter = require('react-dev-utils/eslintFormatter');
-const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
-const { ReactLoadablePlugin } = require('react-loadable/webpack');
-const ErrorOverlayPlugin = require('error-overlay-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const ManifestPlugin = require('webpack-manifest-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+/* eslint-disable global-require */
+const path = require('path')
+const autoprefixer = require('autoprefixer')
+const webpack = require('webpack')
+const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
+const eslintFormatter = require('react-dev-utils/eslintFormatter')
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
+const { ReactLoadablePlugin } = require('react-loadable/webpack')
+const ErrorOverlayPlugin = require('error-overlay-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const ManifestPlugin = require('webpack-manifest-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
-const { getAppEnv } = require('./env');
+const { getAppEnv } = require('./env')
 
-const env = getAppEnv();
-const { PUBLIC_URL = '' } = env.raw;
+const env = getAppEnv()
+const { PUBLIC_URL = '' } = env.raw
 
-const resolvePath = relativePath => path.resolve(__dirname, relativePath);
+const resolvePath = (relativePath) => path.resolve(__dirname, relativePath)
 
 /**
  * This function generates a webpack config object for the client-side bundle.
  */
-module.exports = function(envType) {
-  const IS_DEV = envType === 'development';
-  const IS_PROD = envType === 'production';
-  const config = {};
+module.exports = function (envType) {
+  const IS_DEV = envType === 'development'
+  const IS_PROD = envType === 'production'
+  const config = {}
 
-  config.mode = envType;
+  config.mode = envType
 
-  config.devtool = IS_DEV ? 'cheap-module-source-map' : 'source-map';
+  config.devtool = IS_DEV ? 'cheap-module-source-map' : 'source-map'
 
   config.entry = IS_DEV
     ? [
         'webpack-hot-middleware/client?path=/__webpack_hmr&reload=true',
-        resolvePath('../src/index.js')
+        resolvePath('../src/index.js'),
       ]
     : {
         polyfills: resolvePath('../src/polyfills.js'),
-        main: resolvePath('../src/index.js')
-      };
+        main: resolvePath('../src/index.js'),
+      }
 
   config.output = IS_DEV
     ? {
         path: resolvePath('../build'),
         filename: '[name].bundle.js',
         chunkFilename: '[name].chunk.js',
-        publicPath: PUBLIC_URL + '/'
+        publicPath: `${PUBLIC_URL}/`,
       }
     : {
         path: resolvePath('../build'),
         filename: 'static/js/[name].[chunkhash:8].js',
         chunkFilename: 'static/js/[name].[chunkhash:8].chunk.js',
-        publicPath: PUBLIC_URL + '/'
-      };
+        publicPath: `${PUBLIC_URL}/`,
+      }
 
   config.module = {
     rules: [
@@ -63,12 +64,12 @@ module.exports = function(envType) {
         use: [
           {
             options: {
-              formatter: eslintFormatter
+              formatter: eslintFormatter,
             },
-            loader: 'eslint-loader'
-          }
+            loader: 'eslint-loader',
+          },
         ],
-        include: resolvePath('../src')
+        include: resolvePath('../src'),
       },
 
       // Babel
@@ -78,8 +79,13 @@ module.exports = function(envType) {
         loader: 'babel-loader',
         options: {
           cacheDirectory: IS_DEV,
-          compact: IS_PROD
-        }
+          compact: IS_PROD,
+        },
+      },
+
+      {
+        test: /\.md$/,
+        use: 'raw-loader',
       },
 
       // CSS Modules
@@ -93,8 +99,8 @@ module.exports = function(envType) {
             loader: 'css-loader',
             options: {
               localsConvention: 'camelCase',
-              modules: true
-            }
+              modules: true,
+            },
           },
           {
             loader: 'postcss-loader',
@@ -103,14 +109,14 @@ module.exports = function(envType) {
               plugins: () => [
                 require('postcss-flexbugs-fixes'),
                 autoprefixer({
-                  flexbox: 'no-2009'
-                })
-              ]
-            }
+                  flexbox: 'no-2009',
+                }),
+              ],
+            },
           },
           'sass-loader',
-          'import-glob-loader'
-        ].filter(Boolean)
+          'import-glob-loader',
+        ].filter(Boolean),
       },
 
       // CSS
@@ -129,17 +135,17 @@ module.exports = function(envType) {
               plugins: () => [
                 require('postcss-flexbugs-fixes'),
                 autoprefixer({
-                  flexbox: 'no-2009'
-                })
-              ]
-            }
+                  flexbox: 'no-2009',
+                }),
+              ],
+            },
           },
           'sass-loader',
-          'import-glob-loader'
-        ].filter(Boolean)
-      }
-    ].filter(Boolean)
-  };
+          'import-glob-loader',
+        ].filter(Boolean),
+      },
+    ].filter(Boolean),
+  }
 
   config.optimization = IS_DEV
     ? {}
@@ -150,13 +156,13 @@ module.exports = function(envType) {
             sourceMap: true,
             uglifyOptions: {
               output: {
-                comments: false
-              }
-            }
+                comments: false,
+              },
+            },
           }),
-          new OptimizeCSSAssetsPlugin({})
-        ]
-      };
+          new OptimizeCSSAssetsPlugin({}),
+        ],
+      }
 
   config.plugins = [
     new webpack.DefinePlugin(env.forWebpackDefinePlugin),
@@ -167,23 +173,23 @@ module.exports = function(envType) {
     IS_DEV && new ErrorOverlayPlugin(),
     IS_PROD &&
       new MiniCssExtractPlugin({
-        filename: 'static/css/[name].[contenthash:8].css'
+        filename: 'static/css/[name].[contenthash:8].css',
       }),
     IS_PROD &&
       new ManifestPlugin({
-        fileName: 'asset-manifest.json'
+        fileName: 'asset-manifest.json',
       }),
     new ReactLoadablePlugin({
-      filename: 'build/react-loadable.json'
-    })
-  ].filter(Boolean);
+      filename: 'build/react-loadable.json',
+    }),
+  ].filter(Boolean)
 
   config.node = {
     dgram: 'empty',
     fs: 'empty',
     net: 'empty',
-    tls: 'empty'
-  };
+    tls: 'empty',
+  }
 
-  return config;
-};
+  return config
+}

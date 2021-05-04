@@ -1,10 +1,11 @@
 import { Router } from 'express'
 import bcrypt from 'bcrypt'
-import User from './models/user'
-import DEVICE from '../config/routes'
-import auth from './authMiddleware'
-import { persistAiq } from './service/airQuality'
-import { createPayload } from './helper/serviceHelper'
+import DEVICE from '../../config/routes'
+import auth from '../middleware/authMiddleware'
+import { persistAiq } from '../service/airQuality'
+import { createPayload } from '../helper/serviceHelper'
+
+const User = require('../models/user')
 
 export const airQualityRoutes = () => {
   const routes = new Router()

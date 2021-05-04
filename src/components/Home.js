@@ -1,60 +1,20 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react'
-
-import { api } from '../api'
-import { useServerData } from '../state/serverDataContext'
+import React, { useEffect, useState } from 'react'
+import ReactMarkdown from 'react-markdown'
+import Readme from './README.md'
 
 const Home = () => {
-  const serverTodos = useServerData((data) => {
-    return data.todos || []
-  })
-  const [text, setText] = useState('')
-  const [todos, setTodos] = useState(serverTodos)
-
+  const [readme, setReadme] = useState('')
+  console.log(Readme)
+  useEffect(() => {
+    setReadme(Readme)
+  }, [])
   return (
     <div>
-      <h1>Home page</h1>
-
-      <form
-        onSubmit={(e) => {
-          e.preventDefault()
-
-          const newTodo = {
-            text,
-          }
-
-          api.todos.create(newTodo).then((res) => {
-            setTodos([...todos, res])
-            setText('')
-          })
-        }}
-      >
-        <label htmlFor="todo">Add a todo</label>
-        <br />
-        <input
-          id="todo"
-          type="text"
-          value={text}
-          autoComplete="off"
-          onChange={(e) => setText(e.target.value)}
-        />
-      </form>
-
-      <ul>
-        {todos.map((todo) => (
-          <li key={todo.id}>{todo.text}</li>
-        ))}
-      </ul>
+      <ReactMarkdown>{readme}</ReactMarkdown>
     </div>
   )
 }
 
-Home.fetchData = () => {
-  return api.todos.all().then((todos) => {
-    return {
-      todos,
-    }
-  })
-}
-
+Home.inject = ['README.md']
 export default Home

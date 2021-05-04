@@ -8,7 +8,7 @@ import Mongoose from 'mongoose'
 import chalk from 'chalk'
 import { renderServerSideApp } from './renderServerSideApp'
 import { todoRoutes } from './todoApi'
-import { airQualityRoutes } from './airQuality'
+import { airQualityRoutes } from './router/airQuality'
 import errorMiddleware from './errorMiddleware'
 
 require('dotenv').config()

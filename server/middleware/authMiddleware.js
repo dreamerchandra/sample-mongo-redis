@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt'
-import User from './models/user'
+
+const User = require('../models/user')
 
 const auth = async (req, res, next) => {
   try {

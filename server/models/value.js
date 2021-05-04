@@ -15,4 +15,8 @@ const readings = Mongoose.Schema({
   },
 })
 
-export default Mongoose.model('readings', readings)
+const Reading = () => {
+  return Mongoose.models.readings || Mongoose.model('readings', readings)
+}
+
+export default Reading()
