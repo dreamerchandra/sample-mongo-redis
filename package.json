@@ -6,7 +6,7 @@
     "node": ">=10.15"
   },
   "scripts": {
-    "start": "node scripts/start.js",
+    "start": "node --inspect scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
     "start:prod": "node scripts/startProd.js",
@@ -14,6 +14,8 @@
     "format": "prettier --write \"src/**/*.{js,json,css,md}\"",
     "docker:build": "docker build --rm -t cullenjett/react-ssr-boilerplate .",
     "docker:start": "docker run --rm -it -p 3000:3000 cullenjett/react-ssr-boilerplate",
+    "mongo:start": "mongod --dbpath /var/lib/mongo --logpath /var/log/mongodb/mongod.log --fork",
+    "mongo:stop": "mongod --shutdown",
     "docker": "npm run docker:build && npm run docker:start"
   },
   "dependencies": {
@@ -30,6 +32,8 @@
     "babel-loader": "^8.0.6",
     "babel-plugin-css-modules-transform": "^1.6.2",
     "babel-plugin-dynamic-import-node": "^2.3.0",
+    "bcrypt": "^5.0.1",
+    "bee-queue": "^1.3.1",
     "body-parser": "^1.19.0",
     "case-sensitive-paths-webpack-plugin": "^2.2.0",
     "chalk": "^2.4.2",
@@ -37,7 +41,7 @@
     "compression": "^1.7.4",
     "core-js": "^3.2.1",
     "css-loader": "^3.2.0",
-    "dotenv": "^8.1.0",
+    "dotenv": "^8.2.0",
     "error-overlay-webpack-plugin": "^0.4.1",
     "eslint": "^6.3.0",
     "eslint-config-react-app": "^5.0.1",
@@ -52,6 +56,7 @@
     "jest": "^24.9.0",
     "lodash-webpack-plugin": "^0.11.5",
     "mini-css-extract-plugin": "^0.8.0",
+    "mongoose": "^5.12.7",
     "morgan": "^1.9.1",
     "node-sass": "^4.12.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",

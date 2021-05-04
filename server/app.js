@@ -4,20 +4,36 @@ import compression from 'compression'
 import helmet from 'helmet'
 import morgan from 'morgan'
 import responseTime from 'response-time'
-import bodyParser from 'body-parser'
+import Mongoose from 'mongoose'
+import chalk from 'chalk'
 import { renderServerSideApp } from './renderServerSideApp'
 import { todoRoutes } from './todoApi'
 import { airQualityRoutes } from './airQuality'
 import errorMiddleware from './errorMiddleware'
+
+require('dotenv').config()
 
 const { PUBLIC_URL = '' } = process.env
 
 // This export is used by our initialization code in /scripts
 export const app = express()
 
+Mongoose.connect(process.env.MONGO_DB_HOST)
+Mongoose.set('useNewUrlParser', true)
+Mongoose.set('useFindAndModify', false)
+Mongoose.set('useCreateIndex', true)
+const db = Mongoose.connection
+db.on('error', (err) => {
+  console.log(chalk.red('mongo db connection failed', err))
+})
+
+db.once('connected', () => {
+  console.log(chalk.green('Mongo db connected'))
+})
+
 app.use(compression())
 app.use(helmet())
-app.use(bodyParser.json())
+app.use(express.json())
 
 // Serve generated assets
 app.use(

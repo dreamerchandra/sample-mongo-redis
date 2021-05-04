@@ -1,0 +1,17 @@
+POST http://localhost:3000/api/device/v1/value/store
+content-type: application/json
+Authorization: Basic {"email":"test1123123","password":"123","id":"609018d36f20d94e27aff456"}
+
+{
+  "name": "o2",
+  "value": "123"
+}
+
+###
+POST http://localhost:3000/api/device/v1/create
+content-type: application/json
+
+{
+  "email": "test1123123",
+  "password": "123"
+}

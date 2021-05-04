@@ -11,6 +11,7 @@ export const purgeCacheOnChange = (path) => {
   watcher.on('ready', () => {
     watcher.on('all', () => {
       console.log('Reloading server...')
+      console.clear()
 
       Object.keys(require.cache).forEach((id) => {
         if (/[/\\](src|server)[/\\]/.test(id)) {

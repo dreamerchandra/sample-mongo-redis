@@ -20,7 +20,7 @@ require('@babel/register')({
 const chalk = require('chalk')
 const clearConsole = require('react-dev-utils/clearConsole')
 const express = require('express')
-const openBrowser = require('react-dev-utils/openBrowser')
+// const openBrowser = require('react-dev-utils/openBrowser')
 const path = require('path')
 const { choosePort, prepareUrls } = require('react-dev-utils/WebpackDevServerUtils')
 
@@ -66,7 +66,7 @@ choosePort(HOST, DEFAULT_PORT).then((port) => {
 
     console.log(chalk.white('\n\tStarting dev server...'))
 
-    openBrowser(urls.localUrlForBrowser)
+    // openBrowser(urls.localUrlForBrowser)
 
     purgeCacheOnChange(path.resolve(__dirname, '../'))
 
