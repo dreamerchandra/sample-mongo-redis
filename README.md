@@ -8,3 +8,8 @@
 ### Project Structure
 
 Yet to come
+
+## For running locally
+
+Install mongodb, redis.
+Update .env file according to host and ports
